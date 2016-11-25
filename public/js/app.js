@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['angularMoment']);
+var app = angular.module("myApp", []);
 
 // Service
 app.service("Entries", function ($http) {
@@ -12,7 +12,6 @@ app.service("Entries", function ($http) {
 
 // Controller
 app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, $log, Entries) {
-	$scope.today = moment.utc();
 	$scope.barcode = null;
 	$scope.entries = [];
 
@@ -26,14 +25,8 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 	};
 
 	$scope.createEntry = function () {
-		var utcDOB = moment.utc([
-			$scope.dob.getFullYear(),
-			$scope.dob.getMonth(),
-			$scope.dob.getDate()
-			]);
 		var entry = {
 			barcode: $scope.barcode,
-			dob: utcDOB
 		};
 
 		Entries.createEntry(entry).then(function (response) {
