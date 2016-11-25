@@ -60,8 +60,8 @@ app.post("/entries", function (req, res) {
 	var newEntry = req.body;
 	newEntry.createDate = new Date();
 
-	if (!req.body.fullName) {
-		handleError(res, "Invalid user input", "Must provide a name.", 400);
+	if (!req.body.barcode) {
+		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
 	}
 
 	db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {

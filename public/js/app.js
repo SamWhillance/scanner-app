@@ -13,8 +13,7 @@ app.service("Entries", function ($http) {
 // Controller
 app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, $log, Entries) {
 	$scope.today = moment.utc();
-	$scope.fullName = null;
-	$scope.dob = null;
+	$scope.barcode = null;
 	$scope.entries = [];
 
 	$scope.getEntries = function () {
@@ -33,7 +32,7 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 			$scope.dob.getDate()
 			]);
 		var entry = {
-			fullName: $scope.fullName,
+			barcode: $scope.barcode,
 			dob: utcDOB
 		};
 
