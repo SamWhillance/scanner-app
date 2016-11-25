@@ -64,13 +64,13 @@ app.post("/entries", function (req, res) {
 		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
 	}
 
-    db.collection(ENTRIES_COLLECTION).find({barcode : newEntry.barcode}, function (err, docs) {
-        if (docs.length){
-            cb('That item exists already', null);
-          
+    db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
+        if (docs.length){          
             // Delete it
             db.collection(ENTRIES_COLLECTION).find({ barcode: newEntry.barcode }).remove().exec();
-        }else{
+
+res.status(200).json({});
+        } else {
             db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
                 if (err) {
                     handleError(res, err.message, "Failed to create new entry.");
