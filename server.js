@@ -64,10 +64,10 @@ app.post("/entries", function (req, res) {
 		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
 	}
 
-    db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
+    db.collection(ENTRIES_COLLECTION).find({barcode: req.body.barcode }, function (err, docs) {
         if (docs.length){          
             // Delete it
-            db.collection(ENTRIES_COLLECTION).find({ barcode: newEntry.barcode }).remove().exec();
+            db.collection(ENTRIES_COLLECTION).find({ barcode: req.body.barcode }).remove().exec();
 
 res.status(200).json({});
         } else {
