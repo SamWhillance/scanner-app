@@ -1,0 +1,6 @@
+{
+	"name": "MEAN app",
+	"description": "",
+	"repository": "",
+	"addons": ["mongolab"]
+}
