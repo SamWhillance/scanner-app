@@ -30,7 +30,7 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 		};
 
 		Entries.createEntry(entry).then(function (response) {
-			alert("Entry created");
+			$log.info("Entry created");
 			$scope.getEntries();
 		}, function (error) {
 			alert("Error creating entry.");
