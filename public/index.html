@@ -34,10 +34,10 @@
 							<legend>Scan an item</legend>
 							<div class="form-group">
 								<div class="col-sm-12 col-lg-8">
-									<input type="text" class="form-control input-lg" placeholder="Barcode">
+									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode">
 								</div>
 								<div class="col-sm-12 col-lg-4">
-									<button class="btn btn-info btn-block btn-lg" type="button"  ng-click="createEntry()">Submit</button>
+									<button ng-disabled="!barcode" class="btn btn-info btn-block btn-lg" type="button" ng-click="createEntry()">Submit</button>
 								</div>
 							</div>
 						</fieldset>

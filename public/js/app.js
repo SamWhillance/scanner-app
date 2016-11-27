@@ -11,7 +11,7 @@ app.service("Entries", function ($http) {
 });
 
 // Controller
-app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, $log, Entries) {
+app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, $log, $timeout, Entries) {
 	$scope.barcode = null;
 	$scope.entries = [];
 	$scope.alert = null;
@@ -23,7 +23,7 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 			$log.info("Entries", response.data);
 			$scope.entries = response.data;
 		}, function (error) {
-			$scope.setAlert("alert-danger", "Failed to get items from database");
+			$scope.setAlert("alert-danger", "Failed to get items");
 		});
 	};
 
@@ -34,11 +34,11 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 
 		Entries.createEntry(entry).then(function (response) {
 			$log.info("Entry created");
-			$scope.setAlert("alert-success", "Item was added");
+			$scope.setAlert("alert-success", "Item added");
 			$scope.getEntries();
 		}, function (error) {
 			alert("Error creating entry.");
-			$scope.setAlert("alert-danger", "Failed to add item to database");
+			$scope.setAlert("alert-danger", "Failed to add item");
 		});
 
 		$scope.barcode = "";
@@ -55,11 +55,11 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 
 	function alertEndLife(){
 		if (alertTimer){
-			clearTimeout(alertTimer);
+			$timeout.cancel(alertTimer);
 			alertTimer = null;
 		}
 
-		alertTimer = setTimeout(function(){
+		alertTimer = $timeout(function(){
 			$scope.alert = null;
 		}, 5000);
 	}
