@@ -34,7 +34,7 @@
 							<legend>Scan an item</legend>
 							<div class="form-group">
 								<div class="col-sm-12 col-lg-8">
-									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode">
+									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode" autofocus>
 								</div>
 								<div class="col-sm-12 col-lg-4">
 									<button ng-disabled="!barcode" class="btn btn-info btn-block btn-lg" type="button" ng-click="createEntry()">Submit</button>
@@ -56,7 +56,6 @@
 							</div>
 
 							<table ng-show="entries.length > 0" class="table table-striped table-hover">
-								<caption>{{ entries.length}} items</caption>
 								<thead>
 									<th>#</th>
 									<th>Barcode</th>
@@ -64,7 +63,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="entry in entries track by $index">
-										<td ng-bind="$index"></td>
+										<td ng-bind="$index + 1"></td>
 										<td ng-bind="entry.barcode"></td>
 										<td ng-bind="entry.createDate"></td>
 									</tr>
