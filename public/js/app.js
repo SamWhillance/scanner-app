@@ -54,8 +54,7 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 				$scope.setAlert("alert-success", entry.barcode + " added");
 			}
 
-			// Update entries
-			$scope.entries = response.data;
+			$scope.getEntries();
 
 			$scope.barcode = "";
 		}, function (error) {
