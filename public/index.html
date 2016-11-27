@@ -12,13 +12,13 @@
 
 <body ng-controller="appController" ng-init="getEntries()">
 	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<a href="" class="navbar-brand">VacLock</a>
 			</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container-fluid" style="margin-top: 60px">
 		<div class="row">
 
 			<div class="col-xs-12 col-lg-6">
@@ -29,9 +29,9 @@
 						<div class="form-group">
 							<label class="control-label">Barcode</label>
 							<div class="input-group">
-								<input ng-model="barcode" type="text" class="form-control">
+								<input ng-model="barcode" type="text" class="form-control" autofocus>
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">Submit</button>
+									<button class="btn btn-primary" type="button"  ng-click="createEntry()">Submit</button>
 								</span>
 							</div>
 						</div>
@@ -60,6 +60,12 @@
 
 		</div>
 	</div>
+
+	<footer class="footer">
+		<div class="container-fluid">
+			<p class="text-muted">Web App by Sam Whillance</p>
+		</div>
+	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
