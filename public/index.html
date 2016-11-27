@@ -62,7 +62,7 @@
 									<th>Timestamp</th>
 								</thead>
 								<tbody>
-									<tr ng-repeat="entry in entries track by $index | orderBy: '-createDate'">
+									<tr ng-repeat="entry in entries track by $index">
 										<td ng-bind="entry.barcode"></td>
 										<td ng-bind="entry.createDate"></td>
 									</tr>
