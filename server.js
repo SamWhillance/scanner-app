@@ -58,7 +58,11 @@ app.get("/entries", function (req, res) {
 
 app.post("/entries", function (req, res) {
 	if (!req.body.barcode) {
-		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
+		handleError(res, "Invalid user input", "Must provide a barcode", 400);
+	}
+
+	if (req.body.barcode == "") {
+		handleError(res, "Invalid user input", "Must provide a barcode", 400);
 	}
 
 	var newEntry = req.body;
