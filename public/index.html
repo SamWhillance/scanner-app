@@ -27,10 +27,13 @@
 						<h2>Scan an item</h2>
 
 						<div class="form-group">
-							<label>
-								Barcode
-								<input ng-model="barcode" type="text" class="form-control" />
-							</label>
+							<label class="control-label">Barcode</label>
+							<div class="input-group">
+								<input ng-model="barcode" type="text" class="form-control">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button">Submit</button>
+								</span>
+							</div>
 						</div>
 					</form>
 				</div>
