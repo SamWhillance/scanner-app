@@ -64,7 +64,7 @@ app.post("/entries", function (req, res) {
 	var newEntry = req.body;
 	newEntry.createDate = new Date();
 
-	db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
+	db.collection(ENTRIES_COLLECTION).find({ barcode: newEntry.barcode }).toArray(function (err, docs) {
 		if (err) {
 			handleError(res, err.message, "Failed to find entries.");
 		} else
