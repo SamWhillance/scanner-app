@@ -35,6 +35,8 @@ app.controller("appController", ['$scope', '$log', 'Entries', function ($scope, 
 		}, function (error) {
 			alert("Error creating entry.");
 		});
+
+		$scope.barcode = "";
 	};
 
 }]);
