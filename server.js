@@ -64,25 +64,25 @@ app.post("/entries", function (req, res) {
 		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
 	}
 
-    db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
-if (err) {
+	db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
+		if (err) {
 			handleError(res, err.message, "Failed to find entries.");
 		} else
-        if (docs.length > 0){          
-            // Delete it
-            db.collection(ENTRIES_COLLECTION).find({ barcode: newEntry.barcode }).remove().exec();
+		if (docs.length > 0){
 
-res.status(200).json({});
-        } else {
-            db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
-                if (err) {
-                    handleError(res, err.message, "Failed to create new entry.");
-                } else {
-                  res.status(201).json(doc.ops[0]);
-                }
-            });
-        }
-    });
+			// Delete docs with matching barcodes
+			db.collection.deleteMany({ barcode: newEntry.barcode });
 
+			res.status(200).json({});
+		} else {
+			db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
+				if (err) {
+					handleError(res, err.message, "Failed to create new entry.");
+				} else {
+					res.status(201).json(doc.ops[0]);
+				}
+			});
+		}
+	});
 });
-	
+
