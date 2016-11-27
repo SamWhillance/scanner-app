@@ -10,6 +10,18 @@ app.service("Entries", function ($http) {
 	}
 });
 
+app.directive('inputFocusFunction', function () {
+	'use strict';
+	return {
+		restrict: 'A',
+		link: function (scope, element, attr) {
+			scope[attr.inputFocusFunction] = function () {
+				element[0].focus();
+			};
+		}
+	};
+});
+
 // Controller
 app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', function ($scope, $log, $timeout, Entries) {
 	$scope.barcode = null;
