@@ -60,7 +60,6 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 		}, function (error) {
 			$log.error("Error creating entry", error);
 			$scope.setAlert("alert-danger", "Failed to add item");
-		}).finally(function(){
 			$scope.loading = false;
 		});
 	};
