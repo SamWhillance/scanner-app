@@ -31,19 +31,25 @@
 
 			<div class="col-xs-12 col-sm-6 col-lg-4" ng-cloak>
 				<div class="well">
-					<form class="form-horizontal">
-						<fieldset>
-							<legend>Scan an item</legend>
-							<div class="form-group">
-								<div class="col-sm-12 col-lg-8">
-									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode" ng-disabled="loading" onblur="this.focus()" autofocus>
-								</div>
-								<div class="col-sm-12 col-lg-4">
-									<button ng-disabled="!barcode" class="btn btn-info btn-block btn-lg" type="button" ng-click="createEntry()">Submit</button>
-								</div>
-							</div>
-						</fieldset>
-					</form>
+					<div class="row">
+						<div class="col-xs-12">
+							<form class="form-horizontal">
+								<fieldset>
+									<legend>Scan an item</legend>
+									<div class="form-group">
+										<div class="col-sm-12 col-lg-7">
+											<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode" ng-disabled="loading" onblur="this.focus()" autofocus>
+										</div>
+										<div class="col-sm-12 col-lg-5">
+											<button ng-disabled="!barcode" class="btn btn-info btn-block btn-lg" type="button" ng-click="createEntry()">Submit</button>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="col-xs-12">
+						</div>
+					</div>
 				</div>
 			</div>
 
