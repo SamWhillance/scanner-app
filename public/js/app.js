@@ -33,7 +33,7 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 		};
 
 		var exists = false;
-		angular.forEach(entries, function(entry){
+		angular.forEach($scope.entries, function(entry){
 			if (entry.barcode == $scope.barcode){
 				exists = true;
 			}
