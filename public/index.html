@@ -55,17 +55,15 @@
 								<strong>Hoorah! </strong>No items are in use.
 							</div>
 
-							<table ng-show="entries.length > 0" class="table table-striped table-hover">
+							<table ng-show="entries.length > 0" class="table table-striped table-hover" style="font-size: 16px;">
 								<thead>
 									<th>#</th>
 									<th>Barcode</th>
-									<th>Timestamp</th>
 								</thead>
 								<tbody>
-									<tr ng-repeat="entry in entries track by $index">
+									<tr ng-repeat="entry in entries track by $index" title="{{entry.createDate}}">
 										<td ng-bind="$index + 1"></td>
-										<td ng-bind="entry.barcode"></td>
-										<td ng-bind="entry.createDate"></td>
+										<td><strong>{{ entry.barcode }}</strong></td>
 									</tr>
 								</tbody>
 							</table>

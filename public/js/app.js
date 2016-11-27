@@ -32,16 +32,27 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 			barcode: $scope.barcode,
 		};
 
+		var exists = false;
+		angular.forEach(entries, function(entry){
+			if (entry.barcode == $scope.barcode){
+				exists = true;
+			}
+		});
+
 		Entries.createEntry(entry).then(function (response) {
-			$log.info("Entry created");
-			$scope.setAlert("alert-success", "Item added");
+			if (exists){
+				$scope.setAlert("alert-success", entry.barcode + " was removed");
+			} else {
+				$scope.setAlert("alert-success", entry.barcode + " added");
+			}
+
 			$scope.getEntries();
+
+			$scope.barcode = "";
 		}, function (error) {
 			alert("Error creating entry.");
 			$scope.setAlert("alert-danger", "Failed to add item");
 		});
-
-		$scope.barcode = "";
 	};
 
 	$scope.setAlert = function(aClass, aMessage){
