@@ -36,7 +36,7 @@
 							<legend>Scan an item</legend>
 							<div class="form-group">
 								<div class="col-sm-12 col-lg-8">
-									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode" autofocus>
+									<input ng-model="barcode" type="text" class="form-control input-lg" placeholder="Barcode"  onblur="this.focus()" autofocus>
 								</div>
 								<div class="col-sm-12 col-lg-4">
 									<button ng-disabled="!barcode" class="btn btn-info btn-block btn-lg" type="button" ng-click="createEntry()">Submit</button>
