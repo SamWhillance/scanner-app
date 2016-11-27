@@ -77,7 +77,14 @@ app.post("/entries", function (req, res) {
 			// Delete docs with matching barcodes
 			db.collection(ENTRIES_COLLECTION).deleteMany({ barcode: newEntry.barcode });
 
-			res.status(200).json({});
+			// Return all
+			db.collection(ENTRIES_COLLECTION).find({}).toArray(function (err, docs) {
+				if (err) {
+					handleError(res, err.message, "Failed to get entries.");
+				} else {
+					res.status(200).json(docs);
+				}
+			});
 		} else {
 			db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
 				if (err) {
