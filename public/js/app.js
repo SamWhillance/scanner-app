@@ -15,19 +15,27 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 	$scope.barcode = null;
 	$scope.entries = [];
 	$scope.alert = null;
+	$scope.loading = false;
 
 	var alertTimer = null;
 
 	$scope.getEntries = function () {
+		$scope.loading = true;
+
 		Entries.getEntries().then(function (response) {
 			$log.info("Entries", response.data);
 			$scope.entries = response.data;
 		}, function (error) {
 			$scope.setAlert("alert-danger", "Failed to get items");
+			$log.error(error);
+		}).finally(function(){
+			$scope.loading = false;
 		});
 	};
 
 	$scope.createEntry = function () {
+		$scope.loading = true;
+
 		var entry = {
 			barcode: $scope.barcode,
 		};
@@ -50,8 +58,10 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 
 			$scope.barcode = "";
 		}, function (error) {
-			alert("Error creating entry.");
+			$log.error("Error creating entry", error);
 			$scope.setAlert("alert-danger", "Failed to add item");
+		}).finally(function(){
+			$scope.loading = false;
 		});
 	};
 

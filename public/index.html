@@ -8,6 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/ring.css">
 </head>
 
 <body ng-controller="appController" ng-init="getEntries()">
@@ -72,6 +74,10 @@
 				</div>
 			</div>
 
+		</div>
+
+		<div ng-show="loading" class="loader" ng-cloak>
+			<div class='uil-ring-css' style='transform:scale(0.64);'><div></div></div>
 		</div>
 	</div>
 
