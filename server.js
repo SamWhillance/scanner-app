@@ -57,12 +57,12 @@ app.get("/entries", function (req, res) {
 });
 
 app.post("/entries", function (req, res) {
-	var newEntry = req.body;
-	newEntry.createDate = new Date();
-
 	if (!req.body.barcode) {
 		handleError(res, "Invalid user input", "Must provide a barcode.", 400);
 	}
+
+	var newEntry = req.body;
+	newEntry.createDate = new Date();
 
 	db.collection(ENTRIES_COLLECTION).find({barcode: newEntry.barcode }, function (err, docs) {
 		if (err) {
@@ -71,7 +71,7 @@ app.post("/entries", function (req, res) {
 		if (docs.length > 0){
 
 			// Delete docs with matching barcodes
-			db.collection.deleteMany({ barcode: newEntry.barcode });
+			db.collection(ENTRIES_COLLECTION).deleteMany({ barcode: newEntry.barcode });
 
 			res.status(200).json({});
 		} else {
