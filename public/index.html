@@ -21,7 +21,13 @@
 	<div class="container-fluid" style="margin-top: 60px">
 		<div class="row">
 
-			<div class="col-xs-12 col-sm-6 col-lg-4">
+			<div ng-show="alert" class="col-xs-12">
+				<div class="alert {{alert.class}}">
+					<p ng-bind="alert.message"></p>
+				</div>
+			</div>
+
+			<div ng-hide="alert" class="col-xs-12 col-sm-6 col-lg-4">
 				<div class="well">
 					<form class="form-horizontal">
 						<fieldset>
@@ -39,9 +45,7 @@
 				</div>
 			</div>
 
-			<!--<button ng-disabled="!barcode" class="btn btn-primary" ng-click="createEntry()">Submit</button>-->
-
-			<div class="col-xs-12 col-sm-6 col-lg-8">
+			<div ng-hide="alert" class="col-xs-12 col-sm-6 col-lg-8">
 				<div class="well">
 					<form class="form-horizontal">
 						<fieldset>
@@ -52,6 +56,7 @@
 							</div>
 
 							<table ng-show="entries.length > 0" class="table">
+								<caption>{{ entries.length}} items</caption>
 								<thead>
 									<th>Barcode</th>
 									<th>Timestamp</th>
