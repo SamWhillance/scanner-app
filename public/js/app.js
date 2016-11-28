@@ -11,7 +11,7 @@ app.service("Entries", function ($http) {
 });
 
 // Controller
-app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', function ($scope, $log, $timeout, Entries) {
+app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Entries', function ($scope, $log, $timeout, $interval, Entries) {
 	$scope.barcode = null;
 	$scope.entries = [];
 	$scope.alert = null;
