@@ -69,15 +69,16 @@ app.post("/entries", function (req, res) {
 	newEntry.createDate = new Date();
 
 	// Find
-	var myDocument = db.collection(ENTRIES_COLLECTION).findOne({ barcode: newEntry.barcode });
-
+	var myDocument = db.collection(ENTRIES_COLLECTION).find({ barcode : newEntry.barcode }).toArray(function (err, docs) {
 	// If exists
-	if (myDocument) {
+	if (docs.length > 0) {
 		// Update
 		db.collection(ENTRIES_COLLECTION).updateOne(
 			{ barcode : newEntry.barcode },
 			{ $set: { inUse : !myDocument.inUse } }
 		);
+
+		res.status(201).json({});
 	} else {
 		// Create
 		db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
