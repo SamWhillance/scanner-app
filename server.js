@@ -75,7 +75,7 @@ app.post("/entries", function (req, res) {
 			// Update
 			db.collection(ENTRIES_COLLECTION).updateOne(
 				{ barcode : newEntry.barcode },
-				{ $set: { inUse : !myDocument.inUse } }
+				{ $set: { inUse : !newEntry.inUse } }
 			);
 
 			res.status(201).json({});

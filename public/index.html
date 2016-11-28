@@ -60,12 +60,9 @@
 							</div>
 
 							<table ng-show="inUse.length > 0" class="table table-striped table-hover" style="font-size: 16px;">
-								<thead>
-									<th>Barcode</th>
-								</thead>
 								<tbody>
 									<tr ng-repeat="entry in inUse track by $index" title="{{entry.createDate}}">
-										<td><strong>{{ entry.barcode }}</strong></td>
+										<td>{{ entry.barcode }}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -81,9 +78,6 @@
 							<legend>Not In Use</legend>
 
 							<table ng-show="notInUse.length > 0" class="table table-striped table-hover" style="font-size: 16px;">
-								<thead>
-									<th>Barcode</th>
-								</thead>
 								<tbody>
 									<tr ng-repeat="entry in notInUse track by $index" title="{{entry.createDate}}">
 										<td><strong>{{ entry.barcode }}</strong></td>
