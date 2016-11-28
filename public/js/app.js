@@ -19,6 +19,10 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 
 	var alertTimer = null;
 
+	$interval(function() {
+		$scope.getEntries();
+	}, 1000*60*5);
+
 	$scope.getEntries = function () {
 		$scope.loading = true;
 
