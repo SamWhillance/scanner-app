@@ -70,24 +70,25 @@ app.post("/entries", function (req, res) {
 
 	// Find
 	var myDocument = db.collection(ENTRIES_COLLECTION).find({ barcode : newEntry.barcode }).toArray(function (err, docs) {
-	// If exists
-	if (docs.length > 0) {
-		// Update
-		db.collection(ENTRIES_COLLECTION).updateOne(
-			{ barcode : newEntry.barcode },
-			{ $set: { inUse : !myDocument.inUse } }
-		);
+		// If exists
+		if (docs.length > 0) {
+			// Update
+			db.collection(ENTRIES_COLLECTION).updateOne(
+				{ barcode : newEntry.barcode },
+				{ $set: { inUse : !myDocument.inUse } }
+			);
 
-		res.status(201).json({});
-	} else {
-		// Create
-		db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
-			if (err) {
-				handleError(res, err.message, "Failed to create new entry.");
-			} else {
-				res.status(201).json(doc.ops[0]);
-			}
-		});
-	}
+			res.status(201).json({});
+		} else {
+			// Create
+			db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
+				if (err) {
+					handleError(res, err.message, "Failed to create new entry.");
+				} else {
+					res.status(201).json(doc.ops[0]);
+				}
+			});
+		}
+	});
 });
 
