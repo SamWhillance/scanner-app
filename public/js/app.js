@@ -13,7 +13,8 @@ app.service("Entries", function ($http) {
 // Controller
 app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Entries', function ($scope, $log, $timeout, $interval, Entries) {
 	$scope.barcode = null;
-	$scope.entries = [];
+	$scope.inUse = [];
+	$scope.notInUse = [];
 	$scope.alert = null;
 	$scope.loading = false;
 
@@ -26,9 +27,19 @@ app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Ent
 	$scope.getEntries = function () {
 		$scope.loading = true;
 
+		$scope.inUse = [];
+		$scope.notInUse = [];
+
 		Entries.getEntries().then(function (response) {
 			$log.info("Entries", response.data);
-			$scope.entries = response.data;
+
+			angular.forEach(response.data, function(aEntry){
+				if (aEntry.inUse){
+					$scope.inUse.push(aEntry);
+				} else {
+					$scope.notInUse.push(aEntry);
+				}
+			});
 		}, function (error) {
 			$scope.setAlert("alert-danger", "Failed to get items");
 			$log.error(error);
@@ -40,40 +51,49 @@ app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Ent
 	$scope.createEntry = function () {
 		$scope.loading = true;
 
-		var entry = {
+		// Create entry object
+		var payload = {
 			barcode: $scope.barcode,
+			inUse: true,
 		};
 
-		var exists = false;
+		// Find existing object
+		var item = null;
 		angular.forEach($scope.entries, function(entry){
 			if (entry.barcode == $scope.barcode){
-				exists = true;
+				item = entry;
 			}
 		});
 
-		Entries.createEntry(entry).then(function (response) {
-			if (exists){
-				$scope.setAlert("alert-success", entry.barcode + " was removed");
-			} else {
-				$scope.setAlert("alert-success", entry.barcode + " added");
-			}
+		// If the item already exists
+		if (item){
+			payload.inUse = !item.inUse;
+		}
 
+		// Create entry
+		Entries.createEntry(payload).then(function (response) {
+			$scope.setAlert("alert-success", $scope.barcode + " was updated");
 			$scope.getEntries();
-
 			$scope.barcode = "";
 		}, function (error) {
 			$log.error("Error creating entry", error);
-			$scope.setAlert("alert-danger", "Failed to add item");
+
+			if (item){
+				$scope.setAlert("alert-danger", "Failed to add item");
+			} else {
+				$scope.setAlert("alert-danger", "Failed to update item");
+			}
+
 			$scope.loading = false;
 		});
 	};
 
+	// Set the alert
 	$scope.setAlert = function(aClass, aMessage){
 		$scope.alert = {
 			class: aClass,
 			message: aMessage
 		};
-
 		alertEndLife();
 	};
 

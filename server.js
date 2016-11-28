@@ -68,25 +68,25 @@ app.post("/entries", function (req, res) {
 	var newEntry = req.body;
 	newEntry.createDate = new Date();
 
-	db.collection(ENTRIES_COLLECTION).find({ barcode: newEntry.barcode }).toArray(function (err, docs) {
-		if (err) {
-			handleError(res, err.message, "Failed to find entries.");
-		} else
-		if (docs.length > 0){
+	// Find
+	var myDocument = db.collection(ENTRIES_COLLECTION).findOne({ barcode: newEntry.barcode });
 
-			// Delete docs with matching barcodes
-			db.collection(ENTRIES_COLLECTION).deleteMany({ barcode: newEntry.barcode });
-
-			res.status(200).json({});
-		} else {
-			db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
-				if (err) {
-					handleError(res, err.message, "Failed to create new entry.");
-				} else {
-					res.status(201).json(doc.ops[0]);
-				}
-			});
-		}
-	});
+	// If exists
+	if (myDocument) {
+		// Update
+		db.collection(ENTRIES_COLLECTION).updateOne(
+			{ barcode : newEntry.barcode },
+			{ $set: { inUse : !myDocument.inUse } }
+		);
+	} else {
+		// Create
+		db.collection(ENTRIES_COLLECTION).insertOne(newEntry, function (err, doc) {
+			if (err) {
+				handleError(res, err.message, "Failed to create new entry.");
+			} else {
+				res.status(201).json(doc.ops[0]);
+			}
+		});
+	}
 });
 
