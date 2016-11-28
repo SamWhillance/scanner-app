@@ -53,13 +53,17 @@ app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Ent
 
 		// Create entry object
 		var payload = {
-			barcode: $scope.barcode,
-			inUse: true,
+			barcode: $scope.barcode
 		};
 
 		// Find existing object
 		var item = null;
-		angular.forEach($scope.entries, function(entry){
+		angular.forEach($scope.inUse, function(entry){
+			if (entry.barcode == $scope.barcode){
+				item = entry;
+			}
+		});
+		angular.forEach($scope.notInUse, function(entry){
 			if (entry.barcode == $scope.barcode){
 				item = entry;
 			}
@@ -67,7 +71,10 @@ app.controller("appController", ['$scope', '$log', '$timeout', '$interval', 'Ent
 
 		// If the item already exists
 		if (item){
+			// Swap lists
 			payload.inUse = !item.inUse;
+		} else {
+			payload.inUse = true;
 		}
 
 		// Create entry
