@@ -73,14 +73,6 @@ app.controller("appController", ['$scope', '$log', '$timeout', 'Entries', functi
 		alertEndLife();
 	};
 
-	$scope.$watch('barcode', function(newValue, oldValue){
-		// If this is a copy paste
-		if (newValue.length > oldValue.length + 2){
-			// Submit
-			$scope.createEntry();
-		}
-	});
-
 	function alertEndLife(){
 		if (alertTimer){
 			$timeout.cancel(alertTimer);
